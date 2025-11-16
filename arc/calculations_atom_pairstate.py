@@ -3840,12 +3840,12 @@ class PairStateInteractions:
             c=colorfulState,
             linewidth=0,
             norm=cNorm,
-            cmap=rvb,
+            cmap='viridis_r',
             zorder=2,
             picker=5,
         )
         cax = self.fig.add_axes([0.91, 0.1, 0.02, 0.8])
-        cb = matplotlib.colorbar.ColorbarBase(cax, cmap=rvb, norm=cNorm)
+        cb = matplotlib.colorbar.ColorbarBase(cax, cmap='viridis_r', norm=cNorm)
 
         if self.drivingFromState[0] == 0:
             # colouring is based on the contribution of the original pair state here
@@ -4406,6 +4406,7 @@ class PairStateInteractions:
                     initialStateDetuningX[noOfPoints // 2],
                 ],
             )
+            errors = np.sqrt(np.diag(pcov))
         except Exception as ex:
             print(ex)
             print("ERROR: unable to find a fit for van der Waals distance.")
@@ -4422,6 +4423,7 @@ class PairStateInteractions:
 
         print("Rvdw =  ", popt[2], " mu m")
         print("offset = ", popt[0], "\n scale = ", popt[1])
+        print('errors = ', errors)
 
         y_fit = []
 
@@ -4473,7 +4475,7 @@ class PairStateInteractions:
         self.fitY = initialStateDetuning
         self.fittedCurveY = y_fit
 
-        return popt[2]
+        return popt[2], errors[2]
 
 
 class StarkMapResonances:
