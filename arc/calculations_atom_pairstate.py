@@ -4474,8 +4474,10 @@ class PairStateInteractions:
         self.fitX = initialStateDetuningX
         self.fitY = initialStateDetuning
         self.fittedCurveY = y_fit
-
-        return popt[2], errors[2]
+        if showPlot:
+            return popt[2], errors[2], fig
+        else:
+            return popt[2], errors[2]
 
 
 class StarkMapResonances:
