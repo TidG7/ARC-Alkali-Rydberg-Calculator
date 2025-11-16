@@ -4224,12 +4224,14 @@ class PairStateInteractions:
             popt, pcov = curve_fit(
                 c3fit, initialStateDetuningX, initialStateDetuning, [1, 0]
             )
+            errors = np.sqrt(np.diag(pcov))
         except Exception as ex:
             print(ex)
             print("ERROR: unable to find a fit for C3.")
             return False
         print("c3 = ", popt[0], " GHz /R^3 (mu m)^3")
         print("offset = ", popt[1])
+        print(errors)
 
         y_fit = []
 
@@ -4288,7 +4290,10 @@ class PairStateInteractions:
         self.fitY = initialStateDetuning
         self.fittedCurveY = y_fit
 
-        return popt[0]
+        if showPlot:
+            return popt[0], errors[0], fig
+        else:
+            return popt[0], errors[0]
 
     def getVdwFromLevelDiagram(
         self, rStart, rStop, showPlot=False, minStateContribution=0.0
