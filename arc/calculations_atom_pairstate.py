@@ -4231,7 +4231,7 @@ class PairStateInteractions:
             return False
         print("c3 = ", popt[0], " GHz /R^3 (mu m)^3")
         print("offset = ", popt[1])
-        print(errors)
+        # print( = errors)
 
         y_fit = []
 
