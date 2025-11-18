@@ -4853,9 +4853,11 @@ class StarkMapResonances:
                 self.fig.canvas.draw()
                 self.fig.canvas.mpl_connect("pick_event", self._onPick)
             plt.show()
-            return self.fig
         else:
             print("Error while showing a plot: nothing is plotted yet")
+
+    def savePlot(self, path):
+        self.fig.savefig(path)
 
     def _onPick(self, event):
         if isinstance(event.artist, matplotlib.collections.PathCollection):
